@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>休み・遅刻連絡</title>
+<!-- ホーム画面に追加したときの名前とアイコン -->
+<meta name="apple-mobile-web-app-title" content="休み・遅刻連絡">
+<meta name="theme-color" content="#1a73e8">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script>
+  // ★ Apps Script を公開したときの「ウェブアプリの URL」（/exec で終わる）に書き換える
+  var FORM_URL = 'https://script.google.com/macros/s/ここにデプロイIDを入れる/exec';
+
+  // ホーム画面のアイコンから開いたとき（URL に launch=1 が付く）は、すぐフォームへ移動する
+  var ready = FORM_URL.indexOf('ここに') < 0;
+  if (ready && /[?&]launch=1/.test(location.search)) location.replace(FORM_URL);
+</script>
+<style>
+  :root { --main: #1a73e8; --line: #dadce0; --text: #202124; --sub: #5f6368; --bg: #f8f9fa; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Hiragino Sans", "Meiryo", sans-serif; font-size: 16px; line-height: 1.6; }
+  main { max-width: 480px; margin: 0 auto; padding: 24px 16px; }
+  .head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .head img { width: 64px; height: 64px; border-radius: 15px; }
+  h1 { font-size: 21px; margin: 0; }
+  .open { display: block; width: 100%; padding: 16px; font-size: 18px; font-weight: bold; text-align: center; color: #fff; background: var(--main); border-radius: 10px; text-decoration: none; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 16px; }
+  h2 { font-size: 16px; margin: 0 0 8px; }
+  ol { margin: 0; padding-left: 1.4em; }
+  li { margin: 4px 0; }
+  .hint { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  .warn { color: #c5221f; font-weight: bold; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="head">
+    <img src="icon-180.png" alt="">
+    <h1>休み・遅刻連絡</h1>
+  </div>
+
+  <p id="not-ready" class="warn hidden">フォームの URL がまだ設定されていません。管理者に連絡してください。</p>
+  <a class="open" id="open" href="#">フォームを開く</a>
+
+  <div class="card">
+    <h2>ホーム画面にアイコンを追加する</h2>
+    <p><b>iPhone（Safari）</b></p>
+    <ol>
+      <li>画面下の「共有」ボタン（四角から↑が出ているマーク）を押す</li>
+      <li>「ホーム画面に追加」を押す</li>
+      <li>右上の「追加」を押す</li>
+    </ol>
+    <p><b>Android（Chrome）</b></p>
+    <ol>
+      <li>右上の「︙」を押す</li>
+      <li>「ホーム画面に追加」を押す</li>
+      <li>「追加」を押す</li>
+    </ol>
+    <div class="hint">
+      追加したアイコンを押すと、フォームがすぐ開きます。<br>
+      iPhone は Safari、Android は Chrome で、このページを開いた状態で追加してください。
+    </div>
+  </div>
+</main>
+<script>
+  document.getElementById('open').href = ready ? FORM_URL : '#';
+  document.getElementById('not-ready').classList.toggle('hidden', ready);
+  // このページを開いた時点で URL に launch=1 を付けておく（移動はしない）。
+  // こうしておくと、ホーム画面に追加されたアイコンから開いたときだけフォームへ移動する。
+  if (ready && !/[?&]launch=1/.test(location.search)) {
+    history.replaceState(null, '', location.pathname + '?launch=1');
+  }
+</script>
+</body>
+</html>

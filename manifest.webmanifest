@@ -1,0 +1,13 @@
+{
+  "name": "休み・遅刻連絡",
+  "short_name": "休み・遅刻連絡",
+  "start_url": "./?launch=1",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#1a73e8",
+  "theme_color": "#1a73e8",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
